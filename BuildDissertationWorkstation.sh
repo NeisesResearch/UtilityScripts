@@ -28,7 +28,8 @@ rsync -av am-cakeml/ test_bench/attarch/am-cakeml/
 mkdir test_bench && cd test_bench &&
 
 # 6. init and sync the repo
-repo init -u https://github.com/ku-sldg/attarch-manifest.git -b measurement_integration && repo sync &&
+//repo init -u https://github.com/ku-sldg/attarch-manifest.git -b measurement_integration && repo sync &&
+repo init -u https://github.com/ku-sldg/attarch-manifest.git -b introspect_rebase && repo sync &&
 
 # 7. clone the seL4 dockerfiles
 git clone git@github.com:seL4/seL4-CAmkES-L4v-dockerfiles.git &&
