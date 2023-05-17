@@ -65,12 +65,36 @@ make user HOST_DIR=$THIS_DIR
 EOF
 chmod +x startDocker.sh || { echo "Failed to make startDocker.sh executable"; exit 1; }
 
+#!/bin/bash
+
 # 10. Build the linux kernel
 # Navigate into attarch directory and build the Linux kernel
-
 cd attarch || { echo "Failed to change directory to: attarch"; exit 1; }
-git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable --branch linux-4.9.y || { echo "Failed to clone linux kernel"; exit 1; }
+
+# Display a menu and prompt for input
+PS3="Please enter your choice of Linux kernel version: "
+options=("4.14.y" "4.19.y" "5.4.y" "5.10.y" "5.15.y" "6.1.y")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "4.14.y"|"4.19.y"|"5.4.y"|"5.10.y"|"5.15.y"|"6.1.y")
+            echo "You chose version $opt"
+            break
+            ;;
+        *)
+            echo "Invalid option $REPLY"
+            ;;
+    esac
+done
+
+# Clone the Linux kernel with the chosen version
+git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable --branch linux-${opt} || { echo "Failed to clone Linux kernel"; exit 1; }
+
 ./buildLinux.sh || { echo "Failed to build the Linux kernel"; exit 1; }
+
+
+python3 ScrapeSystemMap.py >> components/Measurement/configurations/linux_definitions.h || { echo "Failed to run ScrapeSystemMap.py"; exit 1; }
+
 
 echo "done"
 
