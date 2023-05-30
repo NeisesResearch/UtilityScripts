@@ -6,6 +6,22 @@
 # development and testing
 # Modifications and improvements provided by OpenAI's ChatGPT-4
 
+# Display a menu and prompt for input
+PS3="Please enter your choice of Linux kernel version. Note that 4.9.y is no longer supported. "
+options=("4.9.y" "4.14.y" "4.19.y" "5.4.y" "5.10.y" "5.15.y" "6.1.y")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "4.9.y"|"4.14.y"|"4.19.y"|"5.4.y"|"5.10.y"|"5.15.y"|"6.1.y")
+            echo "You chose version $opt"
+            break
+            ;;
+        *)
+            echo "Invalid option $REPLY"
+            ;;
+    esac
+done
+
 # 1. Create a directory named for today
 dir="dissertation-$(date +"%d%B%Y")"
 
@@ -70,22 +86,6 @@ chmod +x startDocker.sh || { echo "Failed to make startDocker.sh executable"; ex
 # 10. Build the linux kernel
 # Navigate into attarch directory and build the Linux kernel
 cd attarch || { echo "Failed to change directory to: attarch"; exit 1; }
-
-# Display a menu and prompt for input
-PS3="Please enter your choice of Linux kernel version: "
-options=("4.14.y" "4.19.y" "5.4.y" "5.10.y" "5.15.y" "6.1.y")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "4.14.y"|"4.19.y"|"5.4.y"|"5.10.y"|"5.15.y"|"6.1.y")
-            echo "You chose version $opt"
-            break
-            ;;
-        *)
-            echo "Invalid option $REPLY"
-            ;;
-    esac
-done
 
 # Clone the Linux kernel with the chosen version
 git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable --branch linux-${opt} || { echo "Failed to clone Linux kernel"; exit 1; }
