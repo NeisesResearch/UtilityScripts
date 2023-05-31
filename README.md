@@ -2,4 +2,4 @@
 
 Build dissertation project with:
 
-bash <(curl https://raw.githubusercontent.com/NeisesResearch/UtilityScripts/master/BuildDissertationWorkstation.sh)
+bash <(curl https://raw.githubusercontent.com/NeisesResearch/UtilityScripts/master/interactive_BuildDissertationWorkstation.sh)
