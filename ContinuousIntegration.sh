@@ -29,7 +29,7 @@ cd dev
 
 for version in "${versions[@]}"; do
     rm -rf "${version}-linux"
-    nohup ./ThisDissertationWorkstation.sh "$version" &
+    nohup ./BuildThisDissertationWorkstation.sh "$version" &
 done
 
 wait
@@ -39,8 +39,8 @@ for version in "${versions[@]}"; do
     cd "${version}-linux/test_bench"
     cp /mnt/continteg/UtilityScripts/RunDocker.sh .
     cp /mnt/continteg/UtilityScripts/RunQemu.sh .
-    runDocker.sh
-    runQemu.sh
+    RunDocker.sh
+    RunQemu.sh
     cd ../../
 done
 
