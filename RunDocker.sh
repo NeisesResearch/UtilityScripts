@@ -5,6 +5,5 @@ make EXEC='bash -c "\
     mkdir /host/build || { echo '\''Failed to create /host/build'\''; exit 1; }; \
     cd /host/build || { echo '\''Failed to change to /host/build directory'\''; exit 1; }; \
     ../init-build.sh -DCAMKES_VM_APP=attarch -DPLATFORM=qemu-arm-virt && \
-    ninja && \
-    ./simulate"' user HOST_DIR=$THIS_DIR
+    ninja"' user HOST_DIR=$THIS_DIR
 
