@@ -38,10 +38,7 @@ else
     git clone git@github.com:NeisesResearch/UtilityScripts.git
 fi
 
-cp ~/UtilityScripts/* $utility_scripts_directory
-
 cd $utility_scripts_directory
-
 
 # Now we're in the /mnt/continteg/UtilityScripts dir
 source ./ContinuousIntegration.sh
