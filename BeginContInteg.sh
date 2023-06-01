@@ -7,14 +7,18 @@ set -x
 project_directory="/mnt/continteg"
 
 # Directory where the git repository should be
-utility_scripts_directory="UtilityScripts"
+utility_scripts_directory="${project_diretory}/UtilityScripts"
 
 # Directory where the simulation results should go
-results_directory="SimulationResults"
+results_directory="${project_directory}/SimulationResults"
+
+# Directory where the apps should go
+apps_directory="${project_directory}/dev"
 
 export project_directory
 export utility_scripts_directory
 export results_directory
+export apps_directory
 
 cd ${project_directory}
 

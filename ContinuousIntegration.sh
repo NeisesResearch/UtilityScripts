@@ -11,8 +11,8 @@ versions=(
 "6.1.y"
 )
 
-cp BuildThisDissertationWorkstation.sh ${project_directory}/dev/
-cd ${project_directory}/dev
+cp BuildThisDissertationWorkstation.sh ${apps_directory}
+cd ${apps_directory}
 
 #for version in "${versions[@]}"; do
 #    rm -rf "${version}-linux"
