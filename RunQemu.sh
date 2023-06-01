@@ -9,8 +9,8 @@ cd build
 # Get the PID of the simulate process
 simulate_pid=$!
 
-# Wait for 30 seconds
-sleep 30
+# Wait for 15 seconds
+sleep 15
 
 # Send an interrupt signal to the simulate process
 kill -INT $simulate_pid
