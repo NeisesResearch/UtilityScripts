@@ -1,49 +1,68 @@
 #!/bin/bash
+set -e
+set -x
 
-cd /mnt/continteg
-
-# Directory where the git repository should be
-repo_directory="UtilityScripts"
-
-# Check if the directory exists
-if [ -d "$repo_directory" ]; then
-    echo "$repo_directory exists. Pulling latest changes."
-    cd $repo_directory
-    git pull
-    cd ..
-else
-    echo "$repo_directory does not exist. Cloning the repository."
-    git clone git@github.com:NeisesResearch/UtilityScripts.git
-fi
-
-versions=("4.9.y"
-# "4.19.y" 
-#"5.4.y" 
-# "5.10.y" 
-#"5.15.y" 
-#"6.1.y"
+versions=(
+"4.9.y"
+"4.19.y" 
+"5.4.y" 
+ "5.10.y" 
+"5.15.y" 
+"6.1.y"
 )
 
-cp UtilityScripts/BuildThisDissertationWorkstation.sh ./dev/
-cd dev
+cp ${utility_scripts_directory}/BuildThisDissertationWorkstation.sh ${project_directory}/dev/
+cd ${project_directory}/dev
 
-for version in "${versions[@]}"; do
-    rm -rf "${version}-linux"
-    nohup ./BuildThisDissertationWorkstation.sh "$version" &
-done
+#for version in "${versions[@]}"; do
+#    rm -rf "${version}-linux"
+#    nohup ./BuildThisDissertationWorkstation.sh "$version" &
+#done
 
 wait
-echo "All Dissertation Workstations Built"
+echo "All Dissertation Workstations Prepared"
+
+# Ensure versions array is not empty
+if [ ${#versions[@]} -eq 0 ]; then
+    echo "Error: versions array is empty."
+    exit 1
+fi
 
 for version in "${versions[@]}"; do
-    cd "${version}-linux/test_bench"
-    cp /mnt/continteg/UtilityScripts/RunDocker.sh .
-    cp /mnt/continteg/UtilityScripts/RunQemu.sh .
-    RunDocker.sh
-    RunQemu.sh
-    cd ../../
-done
+    if [ ! -d "${version}-linux/test_bench" ]; then
+        echo "Error: Directory '${version}-linux/test_bench' does not exist."
+        continue
+    fi
 
+    cd "${version}-linux/test_bench"
+
+    if [ ! -f "${utility_scripts_directory}/RunDocker.sh" ]; then
+        echo "Error: File '${utility_scripts_directory}/RunDocker.sh' does not exist."
+        continue
+    fi
+
+    cp ${utility_scripts_directory}/RunDocker.sh .
+
+    if [ ! -f "${utility_scripts_directory}/RunQemu.sh" ]; then
+        echo "Error: File '${utility_scripts_directory}/RunQemu.sh' does not exist."
+        continue
+    fi
+
+    cp ${utility_scripts_directory}/RunQemu.sh .
+
+    if ! ./RunDocker.sh > ../../../${results_directory}/buildlog-${version}; then
+        echo "Error: Failed to run 'RunDocker.sh'."
+        continue
+    fi
+
+    if ! ./RunQemu.sh > ../../../${results_directory}/result-${version}; then
+        echo "Error: Failed to run 'RunQemu.sh'."
+        continue
+    fi
+
+    cd ../../
+    echo "Finished: ${version}"
+done
 
 
 
