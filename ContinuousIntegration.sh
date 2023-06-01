@@ -14,10 +14,10 @@ versions=(
 cp BuildThisDissertationWorkstation.sh ${apps_directory}
 cd ${apps_directory}
 
-#for version in "${versions[@]}"; do
-#    rm -rf "${version}-linux"
-#    nohup ./BuildThisDissertationWorkstation.sh "$version" &
-#done
+for version in "${versions[@]}"; do
+    rm -rf "${version}-linux"
+    nohup ./BuildThisDissertationWorkstation.sh "$version" &
+done
 
 wait
 echo "All Dissertation Workstations Prepared"
@@ -57,4 +57,7 @@ for version in "${versions[@]}"; do
 
     echo "Finished: ${version}"
 done
+
+# now compile and email me the results
+source $utility_scripts_directory/ProcessIntegrationResults.sh
 
