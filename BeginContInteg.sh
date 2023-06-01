@@ -15,10 +15,11 @@ results_directory="${project_directory}/SimulationResults"
 # Directory where the apps should go
 apps_directory="${project_directory}/dev"
 
-export project_directory
-export utility_scripts_directory
-export results_directory
-export apps_directory
+# If I source the next script, I don't need to export these
+#export project_directory
+#export utility_scripts_directory
+#export results_directory
+#export apps_directory
 
 cd ${project_directory}
 
