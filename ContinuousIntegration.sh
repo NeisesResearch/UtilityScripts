@@ -29,6 +29,7 @@ if [ ${#versions[@]} -eq 0 ]; then
 fi
 
 for version in "${versions[@]}"; do
+    cd ${apps_directory}
     if [ ! -d "${version}-linux/test_bench" ]; then
         echo "Error: Directory '${version}-linux/test_bench' does not exist."
         continue
@@ -50,20 +51,16 @@ for version in "${versions[@]}"; do
 
     cp ${utility_scripts_directory}/RunQemu.sh .
 
-    if ! ./RunDocker.sh > ../../../${results_directory}/buildlog-${version}; then
+    if ! ./RunDocker.sh > ${results_directory}/buildlog-${version}; then
         echo "Error: Failed to run 'RunDocker.sh'."
         continue
     fi
 
-    if ! ./RunQemu.sh > ../../../${results_directory}/result-${version}; then
+    if ! ./RunQemu.sh > ${results_directory}/result-${version}; then
         echo "Error: Failed to run 'RunQemu.sh'."
         continue
     fi
 
-    cd ../../
     echo "Finished: ${version}"
 done
-
-
-
 
