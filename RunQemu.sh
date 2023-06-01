@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+set -x
 
 # Start the simulate script as a background job
 cd build
@@ -13,3 +15,5 @@ sleep 30
 # Send an interrupt signal to the simulate process
 kill -INT $simulate_pid
 
+# return to the starting directory
+cd ..
