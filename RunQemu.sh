@@ -3,7 +3,7 @@ set -e
 set -x
 
 # Trap the INT signal
-trap 'kill -INT $simulate_pid' INT
+#trap 'kill -INT $simulate_pid' INT
 
 # Start the simulate script as a background job
 cd build
@@ -19,7 +19,7 @@ sleep 15
 kill -INT $simulate_pid
 
 # Wait for the simulation task to terminate
-wait $simulate_pid
+#wait $simulate_pid
 
 # return to the starting directory
 cd ..
