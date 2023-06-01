@@ -44,22 +44,16 @@ for version in "${versions[@]}"; do
 
     cp ${utility_scripts_directory}/RunDocker.sh .
 
-    if [ ! -f "${utility_scripts_directory}/RunQemu.sh" ]; then
-        echo "Error: File '${utility_scripts_directory}/RunQemu.sh' does not exist."
-        continue
-    fi
-
-    cp ${utility_scripts_directory}/RunQemu.sh .
-
     if ! ./RunDocker.sh | tee ${results_directory}/buildlog-${version}; then
         echo "Error: Failed to run 'RunDocker.sh'."
         continue
     fi
 
-    if ! ./RunQemu.sh | tee ${results_directory}/result-${version}; then
-        echo "Error: Failed to run 'RunQemu.sh'."
-        continue
-    fi
+    cd build
+    (./simulate | tee ${results_directory}/result-${version}) &
+    simulate_pid=$!
+    sleep 10
+    kill -INT $simulate_pid
 
     echo "Finished: ${version}"
 done

@@ -15,12 +15,6 @@ results_directory="${project_directory}/SimulationResults"
 # Directory where the apps should go
 apps_directory="${project_directory}/dev"
 
-# If I source the next script, I don't need to export these
-#export project_directory
-#export utility_scripts_directory
-#export results_directory
-#export apps_directory
-
 cd ${project_directory}
 
 # Check if the results directory exists
@@ -32,6 +26,7 @@ else
 fi
 mkdir  $results_directory
 
+
 # Check if the repo directory exists
 if [ -d "$utility_scripts_directory" ]; then
     echo "$utility_scripts_directory exists. Pulling latest changes."
@@ -42,6 +37,8 @@ else
     echo "$utility_scripts_directory does not exist. Cloning the repository."
     git clone git@github.com:NeisesResearch/UtilityScripts.git
 fi
+
+cp ~/UtilityScripts/* $utility_scripts_directory
 
 cd $utility_scripts_directory
 
