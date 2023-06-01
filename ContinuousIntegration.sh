@@ -11,7 +11,7 @@ versions=(
 "6.1.y"
 )
 
-cp ${utility_scripts_directory}/BuildThisDissertationWorkstation.sh ${project_directory}/dev/
+cp BuildThisDissertationWorkstation.sh ${project_directory}/dev/
 cd ${project_directory}/dev
 
 #for version in "${versions[@]}"; do
