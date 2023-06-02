@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# set the report directory
+if [ -z "project_directory" ]; then
+    :
+else
+    project_directory="/mnt/continteg"
+fi
+
 # set the results directory
 if [ -z "results_directory" ]; then
     :
@@ -9,7 +16,7 @@ fi
 
 # create the final log file
 datetime=$(date +"%d%b%Y")
-logfile="${datetime}-ContinuousIntegrationResults.txt"
+logfile="${project_directory}/DailyBuildResults/${datetime}-ContinuousIntegrationResults.txt"
 
 declare -A build_results
 declare -A introspection_results
@@ -59,16 +66,5 @@ done
 # append error logs
 if [ -n "$error_logs" ]; then
     echo -e "\nError Logs:\n$error_logs" >> $logfile
-fi
-
-# Specify your email address
-email="neisesmichael@gmail.com"
-
-if [[ -f $logfile ]]; then
-    # If the file exists, send it by email
-    echo "Report file has been generated." | mutt -s "Report for today" -a $logfile -- $email
-else
-    # If the file does not exist, send a notification email
-    echo "No report was generated today." | mutt -s "Report for today" -- $email
 fi
 
