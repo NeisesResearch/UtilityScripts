@@ -59,5 +59,9 @@ for version in "${versions[@]}"; do
 done
 
 # now compile and email me the results
+# this script apparently didn't fire.
+# After night 1, the apps build and simulated, and the results and buildlogs
+# were collected.
+# However, the final results were never compiled. It's not clear why.
 source $utility_scripts_directory/ProcessIntegrationResults.sh
 
