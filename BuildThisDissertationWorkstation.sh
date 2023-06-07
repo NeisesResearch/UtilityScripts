@@ -54,12 +54,14 @@ git clone git@github.com:KU-SLDG/attarch -b introspect_rebase || { echo "Failed 
 
 # 4. Place an update script in today's directory
 # Creates a script to update the project
-cat <<EOF > updateProject.sh
+cp $utility_scripts_directory/updateSource.sh .
+
+#cat <<EOF > updateProject.sh
 # Step 1: Remove contents of test_build/attarch except the linux subdirectory
-find test_bench/attarch/ -mindepth 1 -type d -not -wholename '*/linux-stable/*' -not -name 'linux-stable' -not -path '*/IntrospectionLibrary.c' -not -path '*/linux_definitions.h' -exec rm -rf {} +
-rsync -av attarch/ test_bench/attarch/ &&
-rsync -av am-cakeml/ test_bench/attarch/am-cakeml/
-EOF
+#find test_bench/attarch/ -mindepth 1 -type d -not -wholename '*/linux-stable/*' -not -name 'linux-stable' -not -path '*/IntrospectionLibrary.c' -not -path '*/linux_definitions.h' -exec rm -rf {} +
+#rsync -av attarch/ test_bench/attarch/ &&
+#rsync -av am-cakeml/ test_bench/attarch/am-cakeml/
+#EOF
 
 # 5. Create a test_bench directory and check if operation was successful
 mkdir test_bench || { echo "Failed to create test_bench directory"; exit 1; }
