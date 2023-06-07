@@ -14,6 +14,7 @@ versions=(
 cp BuildThisDissertationWorkstation.sh ${apps_directory}
 cd ${apps_directory}
 
+export utility_scripts_directory
 for version in "${versions[@]}"; do
     rm -rf "${version}-linux"
     nohup ./BuildThisDissertationWorkstation.sh "$version" &
