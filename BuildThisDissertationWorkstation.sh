@@ -56,7 +56,7 @@ git clone git@github.com:KU-SLDG/attarch -b introspect_rebase || { echo "Failed 
 # Creates a script to update the project
 cat <<EOF > updateProject.sh
 # Step 1: Remove contents of test_build/attarch except the linux subdirectory
-find test_bench/attarch/ -mindepth 1 -type d -not -wholename '*/linux-stable/*' -not -name 'linux-stable' -not -path '*/linux_definitions.h' -exec rm -rf {} +
+find test_bench/attarch/ -mindepth 1 -type d -not -wholename '*/linux-stable/*' -not -name 'linux-stable' -not -path '*/IntrospectionLibrary.c' -not -path '*/linux_definitions.h' -exec rm -rf {} +
 rsync -av attarch/ test_bench/attarch/ &&
 rsync -av am-cakeml/ test_bench/attarch/am-cakeml/
 EOF
