@@ -6,10 +6,10 @@ DEST_DIR="test_bench/attarch/"
 
 # Define directories or files to exclude
 EXCLUDE=(
-"./am-cakeml" 
-"./linux-stable" 
-"./components/Measurement/configurations/linux_definitions.h" 
-"./components/Measurement/IntrospectionLibrary/IntrospectionLibrary.c"
+"am-cakeml" 
+"linux-stable" 
+"components/Measurement/configurations/linux_definitions.h" 
+"components/Measurement/IntrospectionLibrary/IntrospectionLibrary.c"
 )
 
 # Build the exclude string
