@@ -36,13 +36,13 @@ for file in "$results_directory"/*; do
         version=${BASH_REMATCH[1]}
         
         # check if file contains the string "Overall Appraisal Result"
-        if grep -q "DEBUG: Measurement: Appraising kernel rodata" "$file"; then
+        if grep -q "Appraising kernel rodata" "$file"; then
             rodata_results[$version]="X"
         fi
-        if grep -q "DEBUG: Measurement: Appraising modules" "$file"; then
+        if grep -q "Appraising modules" "$file"; then
             modules_results[$version]="X"
         fi
-        if grep -q "DEBUG: Measurement: Appraising tasks" "$file"; then
+        if grep -q "Appraising tasks" "$file"; then
             tasks_results[$version]="X"
         fi
         if grep -q "Overall Appraisal Result" "$file"; then
