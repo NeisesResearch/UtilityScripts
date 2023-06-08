@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # set the report directory
 if [ -z "project_directory" ]; then
     :
@@ -19,6 +21,9 @@ datetime=$(date +"%d%b%Y")
 logfile="${project_directory}/DailyBuildResults/${datetime}-ContinuousIntegrationResults.txt"
 
 declare -A build_results
+declare -A rodata_results
+declare -A modules_results
+declare -A tasks_results
 declare -A introspection_results
 error_logs=""
 
@@ -31,6 +36,15 @@ for file in "$results_directory"/*; do
         version=${BASH_REMATCH[1]}
         
         # check if file contains the string "Overall Appraisal Result"
+        if grep -q "DEBUG: Measurement: Appraising kernel rodata" "$file"; then
+            rodata_results[$version]="X"
+        fi
+        if grep -q "DEBUG: Measurement: Appraising modules" "$file"; then
+            modules_results[$version]="X"
+        fi
+        if grep -q "DEBUG: Measurement: Appraising tasks" "$file"; then
+            tasks_results[$version]="X"
+        fi
         if grep -q "Overall Appraisal Result" "$file"; then
             introspection_results[$version]="X"
         fi
@@ -51,7 +65,7 @@ for file in "$results_directory"/*; do
 done
 
 # write headers
-printf "%-15s %-15s %-15s\n" "Version" "Build" "Introspection" >> $logfile
+printf "%-15s %-15s %-15s %-15s %-15s %-15s\n" "Version" "Build" "Rodata" "Modules" "Tasks" "Introspection" >> $logfile
 
 # get list of all versions
 versions=(${!build_results[@]} ${!introspection_results[@]})
@@ -60,7 +74,7 @@ versions=($(printf "%s\n" "${versions[@]}" | sort -V | uniq))
 
 # write results
 for version in "${versions[@]}"; do
-    printf "%-15s %-15s %-15s\n" "$version" "${build_results[$version]:-}" "${introspection_results[$version]:-}" >> $logfile
+    printf "%-15s %-15s %-15s %-15s %-15s %-15s\n" "$version" "${build_results[$version]:-}" "${rodata_results[$version]:-}" "${modules_results[$version]:-}" "${tasks_results[$version]:-}" "${introspection_results[$version]:-}" >> $logfile
 done
 
 # append error logs
