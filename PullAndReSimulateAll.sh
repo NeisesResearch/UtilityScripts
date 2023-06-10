@@ -65,6 +65,8 @@ for version in "${versions[@]}"; do
     sleep 10
     kill -INT $simulate_pid
 
+    pkill -f 'qemu-system-aarch64'
+
     echo "Finished: ${version}"
 done
 

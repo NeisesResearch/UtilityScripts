@@ -60,6 +60,8 @@ for version in "${versions[@]}"; do
     echo "Finished: ${version}"
 done
 
+pkill -f 'qemu-system-aarch64'
+
 # now compile and email me the results
 # this script apparently didn't fire.
 # After night 1, the apps build and simulated, and the results and buildlogs
