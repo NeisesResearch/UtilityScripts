@@ -52,13 +52,18 @@ git clone git@github.com:KU-SLDG/am-cakeml -b attarch-measurement-integration ||
 # Clone and check if operation was successful
 git clone git@github.com:KU-SLDG/attarch -b introspect_rebase || { echo "Failed to clone attarch repository"; exit 1; }
 
-# 4a. Place an update script in today's directory
+# 4. Create a test_bench directory and check if operation was successful
+mkdir test_bench || { echo "Failed to create test_bench directory"; exit 1; }
+
+# 5a. Place an update script in today's directory
 # Creates a script to update the project
 cp $utility_scripts_directory/updateSource.sh .
-
-# 4b. Place a simulation script in today's directory
+# 5b. Place a simulation script in today's directory
 # Creates a script to update the project
 cp $utility_scripts_directory/Simulate.sh ./test_bench
+
+cd test_bench || { echo "Failed to change directory to: test_bench"; exit 1; }
+
 
 #cat <<EOF > updateProject.sh
 # Step 1: Remove contents of test_build/attarch except the linux subdirectory
@@ -67,9 +72,6 @@ cp $utility_scripts_directory/Simulate.sh ./test_bench
 #rsync -av am-cakeml/ test_bench/attarch/am-cakeml/
 #EOF
 
-# 5. Create a test_bench directory and check if operation was successful
-mkdir test_bench || { echo "Failed to create test_bench directory"; exit 1; }
-cd test_bench || { echo "Failed to change directory to: test_bench"; exit 1; }
 
 # 6. init and sync the repo
 # Initialize and sync the repo, check if operation was successful
