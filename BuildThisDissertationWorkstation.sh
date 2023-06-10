@@ -52,9 +52,13 @@ git clone git@github.com:KU-SLDG/am-cakeml -b attarch-measurement-integration ||
 # Clone and check if operation was successful
 git clone git@github.com:KU-SLDG/attarch -b introspect_rebase || { echo "Failed to clone attarch repository"; exit 1; }
 
-# 4. Place an update script in today's directory
+# 4a. Place an update script in today's directory
 # Creates a script to update the project
 cp $utility_scripts_directory/updateSource.sh .
+
+# 4b. Place a simulation script in today's directory
+# Creates a script to update the project
+cp $utility_scripts_directory/Simulate.sh ./test_bench
 
 #cat <<EOF > updateProject.sh
 # Step 1: Remove contents of test_build/attarch except the linux subdirectory
