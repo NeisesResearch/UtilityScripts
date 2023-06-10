@@ -16,10 +16,10 @@ cp BuildThisDissertationWorkstation.sh ${apps_directory}
 cd ${apps_directory}
 
 export utility_scripts_directory
-for version in "${versions[@]}"; do
-    rm -rf "${version}-linux"
-    nohup ./BuildThisDissertationWorkstation.sh "$version" &
-done
+#for version in "${versions[@]}"; do
+#    rm -rf "${version}-linux"
+#    nohup ./BuildThisDissertationWorkstation.sh "$version" &
+#done
 
 wait
 echo "All Dissertation Workstations Prepared"
@@ -31,6 +31,8 @@ if [ ${#versions[@]} -eq 0 ]; then
 fi
 
 for version in "${versions[@]}"; do
+    echo $apps_directory
+    echo ${version}
     test_bench="${apps_directory}/${version}-linux/test_bench"
     if [ ! -d "${test_bench}" ]; then
         echo "Error: Directory '${test_bench}' does not exist."
