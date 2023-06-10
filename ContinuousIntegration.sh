@@ -36,8 +36,9 @@ for version in "${versions[@]}"; do
         echo "Error: Directory '${version}-linux/test_bench' does not exist."
         continue
     fi
-
-    cd "${version}-linux/test_bench"
+    test_bench="${apps_directory}/${version}-linux/test_bench"
+    #cd "${version}-linux/test_bench"
+    cd ${test_bench}
 
     if [ ! -f "${utility_scripts_directory}/RunDocker.sh" ]; then
         echo "Error: File '${utility_scripts_directory}/RunDocker.sh' does not exist."
@@ -46,6 +47,19 @@ for version in "${versions[@]}"; do
 
     cp ${utility_scripts_directory}/RunDocker.sh .
 
+    if ! ./RunDocker.sh | tee ${results_directory}/buildlog-${version}; then
+        echo "Error: Failed to run 'RunDocker.sh'."
+        continue
+    fi
+
+    cd build
+    (./simulate | tee ${results_directory}/result-${version}) &
+    simulate_pid=$!
+    sleep 10
+    kill -INT $simulate_pid
+
+    python3 ${utility_scripts_directory}/Provision.py ${results_directory}/result-${version} ${test_bench}/attarch/components/Measurement/
+    cd ${test_bench}
     if ! ./RunDocker.sh | tee ${results_directory}/buildlog-${version}; then
         echo "Error: Failed to run 'RunDocker.sh'."
         continue
