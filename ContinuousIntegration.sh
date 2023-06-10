@@ -31,12 +31,11 @@ if [ ${#versions[@]} -eq 0 ]; then
 fi
 
 for version in "${versions[@]}"; do
-    cd ${apps_directory}
-    if [ ! -d "${version}-linux/test_bench" ]; then
-        echo "Error: Directory '${version}-linux/test_bench' does not exist."
+    test_bench="${apps_directory}/${version}-linux/test_bench"
+    if [ ! -d "${test_bench}" ]; then
+        echo "Error: Directory '${test_bench}' does not exist."
         continue
     fi
-    test_bench="${apps_directory}/${version}-linux/test_bench"
     #cd "${version}-linux/test_bench"
     cd ${test_bench}
 
