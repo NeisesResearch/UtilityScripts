@@ -63,7 +63,7 @@ for version in "${versions[@]}"; do
 
         cd build
         echo "Simulating ${version}"
-        (./simulate > ${results_directory}/result-${version}) &
+        (./simulate > ${results_directory}/result-${version} 2> /dev/null) &
         simulate_pid=$!
         sleep 10
         kill -INT $simulate_pid
@@ -95,7 +95,7 @@ for version in "${versions[@]}"; do
 
         cd build
         echo "Simulating ${version}"
-        (./simulate > ${results_directory}/result-${version}) &
+        (./simulate > ${results_directory}/result-${version} 2> /dev/null) &
         simulate_pid=$!
         sleep 10
         kill -INT $simulate_pid
@@ -107,6 +107,4 @@ done
 wait
 
 pkill -f 'qemu-system-aarch64'
-
-source $utility_scripts_directory/ProcessIntegrationResults.sh
 
