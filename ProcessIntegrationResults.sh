@@ -37,24 +37,24 @@ for file in "$results_directory"/*; do
         
         # check if file contains the string "Overall Appraisal Result"
         if grep -q "Kernel Rodata Appraisal Passed" "$file"; then
-            rodata_results[$version]="V"
+            rodata_results[$version]="1"
         elif grep -q "Kernel Rodata Appraisal Failed" "$file"; then
-            rodata_results[$version]="X"
+            rodata_results[$version]="0"
         fi
         if grep -q "Module Appraisal Passed" "$file"; then
-            modules_results[$version]="V"
+            modules_results[$version]="1"
         elif grep -q "Module Appraisal Failed" "$file"; then
-            modules_results[$version]="X"
+            modules_results[$version]="0"
         fi
         if grep -q "Task Appraisal Passed" "$file"; then
-            tasks_results[$version]="V"
+            tasks_results[$version]="1"
         elif grep -q "Task Appraisal Failed" "$file"; then
-            tasks_results[$version]="X"
+            tasks_results[$version]="0"
         fi
         if grep -q "Overall Appraisal Result: Passed" "$file"; then
-            introspection_results[$version]="V"
+            introspection_results[$version]="1"
         elif grep -q "Overall Appraisal Result: Failed" "$file"; then
-            introspection_results[$version]="X"
+            introspection_results[$version]="0"
         fi
     fi
 
@@ -66,8 +66,9 @@ for file in "$results_directory"/*; do
         error_log=$(grep -Ei -m 1 "ERROR:|error:|FAILED:" "$file")
         if [ -n "$error_log" ]; then
             error_logs+="$version: $error_log\n"
+            build_results[$version]="0"
         else
-            build_results[$version]="Z"
+            build_results[$version]="1"
         fi
     fi
 done
