@@ -57,7 +57,7 @@ for version in "${versions[@]}"; do
         cp ${utility_scripts_directory}/RunDocker.sh .
         echo "Building ${version}"
         if ! ./RunDocker.sh > ${results_directory}/buildlog-${version} 2> /dev/null; then
-            echo "Error: Failed to run 'RunDocker.sh'."
+            echo "Error: Failed to run 'RunDocker.sh' for ${version}."
             continue
         fi
 
@@ -89,7 +89,7 @@ for version in "${versions[@]}"; do
         # build app
         echo "Building ${version}"
         if ! ./RunDocker.sh > ${results_directory}/buildlog-${version}; then
-            echo "Error: Failed to run 'RunDocker.sh'."
+            echo "Error: Failed to run 'RunDocker.sh' for ${version}."
             continue
         fi
 
