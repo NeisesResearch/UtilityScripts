@@ -36,16 +36,24 @@ for file in "$results_directory"/*; do
         version=${BASH_REMATCH[1]}
         
         # check if file contains the string "Overall Appraisal Result"
-        if grep -q "Appraising kernel rodata" "$file"; then
+        if grep -q "Kernel Rodata Appraisal Passed" "$file"; then
+            rodata_results[$version]="V"
+        elif grep -q "Kernel Rodata Appraisal Failed" "$file"; then
             rodata_results[$version]="X"
         fi
-        if grep -q "Appraising modules" "$file"; then
+        if grep -q "Module Appraisal Passed" "$file"; then
+            modules_results[$version]="V"
+        elif grep -q "Module Appraisal Failed" "$file"; then
             modules_results[$version]="X"
         fi
-        if grep -q "Appraising tasks" "$file"; then
+        if grep -q "Task Appraisal Passed" "$file"; then
+            tasks_results[$version]="V"
+        elif grep -q "Task Appraisal Failed" "$file"; then
             tasks_results[$version]="X"
         fi
-        if grep -q "Overall Appraisal Result" "$file"; then
+        if grep -q "Overall Appraisal Result: Passed" "$file"; then
+            introspection_results[$version]="V"
+        elif grep -q "Overall Appraisal Result: Failed" "$file"; then
             introspection_results[$version]="X"
         fi
     fi
@@ -59,7 +67,7 @@ for file in "$results_directory"/*; do
         if [ -n "$error_log" ]; then
             error_logs+="$version: $error_log\n"
         else
-            build_results[$version]="X"
+            build_results[$version]="Z"
         fi
     fi
 done
