@@ -104,6 +104,8 @@ for version in "${versions[@]}"; do
     ) &
 done
 
+wait
+
 pkill -f 'qemu-system-aarch64'
 
 source $utility_scripts_directory/ProcessIntegrationResults.sh
