@@ -88,8 +88,9 @@ echo "Finished Baselining"
 for version in "${versions[@]}"; do
     test_bench="${apps_directory}/${version}-linux/test_bench"
     if [ -f "${test_bench}/build/images/capdl-loader-image-arm-qemu-arm-virt" ]; then
-        echo "Skipping ${version} because it failed baselining"
+        :
     else
+        echo "Skipping ${version} because it failed baselining"
         continue
     fi
     (
