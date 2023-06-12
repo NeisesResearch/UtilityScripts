@@ -23,7 +23,7 @@ def extract_data(input_file_name, output_directory):
         output_file.write("  return numDigests;\n")  # Return numDigests of function calls
         output_file.write("}\n")  # End of the function
 
-    print(f"Total HexToByteString calls: {hex_count}")
+    print(f"Total HexToByteString calls: {hex_count}. Writing to {output_directory}.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
