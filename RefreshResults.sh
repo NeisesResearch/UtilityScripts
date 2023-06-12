@@ -50,7 +50,7 @@ for version in "${versions[@]}"; do
         cd ${test_bench}
 
         cd attarch
-        python3 ScrapeSystemMap.py >> components/Measurement/configurations/linux_definitions.h || { echo "Failed to run ScrapeSystemMap.py"; exit 1; }
+        python3 ScrapeSystemMap.py > components/Measurement/configurations/linux_definitions.h || { echo "Failed to run ScrapeSystemMap.py"; exit 1; }
 
         cd ${test_bench}
 
@@ -70,8 +70,8 @@ for version in "${versions[@]}"; do
         echo "Simulating ${version}"
         (./simulate > ${results_directory}/result-${version} 2> /dev/null) &
         simulate_pid=$!
-        sleep 10
-        kill -INT $simulate_pid
+        sleep 10 2> /dev/null
+        kill -INT $simulate_pid 2> /dev/null
         echo "Finished Simulating ${version}"
     ) &
 done
@@ -98,7 +98,7 @@ for version in "${versions[@]}"; do
 
         # build app
         echo "Building ${version}"
-        if ! ./RunDocker.sh > ${results_directory}/buildlog-${version}; then
+        if ! ./RunDocker.sh > ${results_directory}/buildlog-${version} 2> /dev/null; then
             echo "Error: Failed to run 'RunDocker.sh' for ${version}."
             continue
         fi
@@ -108,7 +108,7 @@ for version in "${versions[@]}"; do
         (./simulate > ${results_directory}/result-${version} 2> /dev/null) &
         simulate_pid=$!
         sleep 10
-        kill -INT $simulate_pid
+        kill -INT $simulate_pid 2> /dev/null
 
         echo "Finished Simulating ${version}"
     ) &
