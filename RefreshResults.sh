@@ -47,7 +47,12 @@ for version in "${versions[@]}"; do
         git pull > /dev/null 2>&1
         cd ..
         ./updateSource.sh > /dev/null 2>&1
-        cd test_bench
+        cd ${test_bench}
+
+        cd attarch
+        python3 ScrapeSystemMap.py >> components/Measurement/configurations/linux_definitions.h || { echo "Failed to run ScrapeSystemMap.py"; exit 1; }
+
+        cd ${test_bench}
 
         # build app
         if [ ! -f "${utility_scripts_directory}/RunDocker.sh" ]; then
@@ -81,8 +86,13 @@ done
 echo "Finished Baselining"
 
 for version in "${versions[@]}"; do
+    test_bench="${apps_directory}/${version}-linux/test_bench"
+    if [ -f "${test_bench}/build/images/capdl-loader-image-arm-qemu-arm-virt" ]; then
+        echo "Skipping ${version} because it failed baselining"
+    else
+        continue
+    fi
     (
-        test_bench="${apps_directory}/${version}-linux/test_bench"
 
         cd ${test_bench}
 
