@@ -10,6 +10,7 @@ EXCLUDE=(
 "linux-stable" 
 "components/Measurement/configurations/linux_definitions.h" 
 "components/Measurement/IntrospectionLibrary/IntrospectionLibrary.c"
+"components/Measurement/generated_digests.c"
 )
 
 # Build the exclude string
