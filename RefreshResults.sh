@@ -26,7 +26,7 @@ versions=(
 "4.14.y"
 "4.19.y" 
 "5.4.y" 
- "5.10.y" 
+"5.10.y" 
 "5.15.y" 
 "6.1.y"
 )
@@ -79,6 +79,7 @@ done
 wait
 
 for version in "${versions[@]}"; do
+    echo "Baselining ${version}"
     test_bench="${apps_directory}/${version}-linux/test_bench"
     python3 ${utility_scripts_directory}/Provision.py ${results_directory}/result-${version} ${test_bench}/attarch/components/Measurement/
 done
