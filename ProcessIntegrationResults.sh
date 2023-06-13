@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 # set the report directory
 if [ -z "project_directory" ]; then
