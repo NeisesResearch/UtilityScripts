@@ -15,7 +15,21 @@
 # Modifications and improvements provided by OpenAI's ChatGPT-4
 
 # Accept input as a command line argument
-opt=$1
+project_dir=$1
+
+# Check if the argument was given
+if [ -z "$project_dir" ]; then
+    echo "No project dir specified. Please specify /mnt/continteg or /nfs/users/m811n155"
+    exit 1
+fi
+# Check if the argument is a valid project_dir
+if [ ! -d "$project_dir" ]; then
+  echo "Directory '$project_dir' does not exist."
+  exit 1
+fi
+
+# Accept input as a command line argument
+opt=$2
 
 # Check if the argument was given
 if [ -z "$opt" ]; then
@@ -44,7 +58,7 @@ fi
 
 
 # 1. Create a directory named for the version of linux
-dir="$opt-linux"
+dir="$project_dir/$opt-linux"
 cd "${dir}/test_bench/attarch/linux-stable" || { echo "Failed to change directory to: ${dir}/test_bench/attarch/linux-stable"; exit 1; }
 
 # ensure the working directories are clean

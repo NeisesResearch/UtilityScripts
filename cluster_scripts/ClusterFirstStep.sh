@@ -50,7 +50,7 @@ fi
 
 
 # 1. Create a directory named for the version of linux
-dir="$opt-linux"
+dir="$project_dir/$opt-linux"
 
 # Create directory and check if operation was successful
 mkdir "${dir}" || { echo "Failed to create directory: ${dir}"; exit 1; }
