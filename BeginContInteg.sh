@@ -1,10 +1,15 @@
 #!/bin/bash
 set -e
-set -x
+#set -x
 
 # This is where all the linux kernels will be stored together with their app.
-# This directory should be able to support ~60 gigabytes of data
-project_directory="/mnt/continteg"
+# This directory should be able to support ~80 gigabytes of data
+project_directory=$1
+
+if [ -z "$opt" ]; then
+    echo "No project directory provided. Please specify /mnt/continteg or perhaps /scratch/m811n155"
+    exit 1
+fi
 
 # Directory where the git repository should be
 utility_scripts_directory="${project_directory}/UtilityScripts/"
