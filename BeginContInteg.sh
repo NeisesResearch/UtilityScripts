@@ -6,7 +6,7 @@ set -e
 # This directory should be able to support ~80 gigabytes of data
 project_directory=$1
 
-if [ -z "$opt" ]; then
+if [ -z "$project_directory" ]; then
     echo "No project directory provided. Please specify /mnt/continteg or perhaps /scratch/m811n155"
     exit 1
 fi
