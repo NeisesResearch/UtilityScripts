@@ -32,7 +32,7 @@ if __name__ == "__main__":
     # Use a regex to find the Linux version in the path
     match = re.search(r'/(\d+\.\d+\.y)-linux/', cwd)
     kernel_version = match.group(1)
-    input_file_name = "/mnt/continteg/SimulationResults/result-{}".format(kernel_version)
+    input_file_name = "/mnt/workspace/dissertation/continteg/SimulationResults/result-{}".format(kernel_version)
     output_directory = "attarch/components/Measurement/"
     extract_data(input_file_name, output_directory)
 

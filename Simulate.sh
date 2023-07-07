@@ -16,7 +16,7 @@ fi
 
 
 cd build
-(./simulate | tee /mnt/continteg/SimulationResults/result-${version}) &
+(./simulate | tee /mnt/workspace/dissertation/continteg/SimulationResults/result-${version}) &
 simulate_pid=$!
 sleep 10
 kill -INT $simulate_pid

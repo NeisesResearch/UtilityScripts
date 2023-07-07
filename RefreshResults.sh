@@ -9,7 +9,7 @@ set -e
 
 # This is where all the linux kernels will be stored together with their app.
 # This directory should be able to support ~60 gigabytes of data
-project_directory="/mnt/continteg"
+project_directory="/mnt/workspace/dissertation/continteg"
 
 # Directory where the git repository should be
 utility_scripts_directory="${project_directory}/UtilityScripts"

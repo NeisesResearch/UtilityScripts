@@ -6,14 +6,14 @@
 if [ -z "project_directory" ]; then
     :
 else
-    project_directory="/mnt/continteg"
+    project_directory="/mnt/workspace/dissertation/continteg"
 fi
 
 # set the results directory
 if [ -z "results_directory" ]; then
     :
 else
-    results_directory="/mnt/continteg/SimulationResults"
+    results_directory="/mnt/workspace/dissertation/continteg/SimulationResults"
 fi
 
 # create the final log file
